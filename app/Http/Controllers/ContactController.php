@@ -28,10 +28,10 @@ class ContactController extends Controller
         return view('contact.index');
     }
     public function submitContact(Request $request){
-      $throttler = Throttle::get(Request::instance(), 5, 1);
+      $throttler       = Throttle::get(Request::instance(), 1, 1);
       $throttlerStatus = Throttle::get(Request::instance())->attempt();
-      $throttlerCount = count($throttler);
-      if($throttlerStatus==true && $throttlerCount<5){
+      $throttlerCount  = count($throttler);
+      if($throttlerStatus==true && $throttlerCount<=1){
            return Redirect::To('contact-us')->with('status', 'Successfully Submitted');
       }else{
            return Redirect::To('contact-us')->with('status', 'Oops.. Please try later.');
